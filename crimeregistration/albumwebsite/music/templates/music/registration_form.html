@@ -1,0 +1,32 @@
+{% extends 'music/base.html' %}
+
+{%block body%}
+
+<div class = 'container-fluid'>
+	<div class = 'row'>
+		<div class = "col-sm-12 col-md-7">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<h3>Create new accoount</h3>
+					<form class="form-horizontal" action = "" method="post" enctype="multipart/form-data">
+						{% csrf_token %}
+						{% include 'music/form-template.html' %}
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								<button class="btn btn-success" type="Submit"> Submit</button>
+							</div>
+						</div>
+
+					</form>
+						
+
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	
+</div>
+
+
+{% endblock %}

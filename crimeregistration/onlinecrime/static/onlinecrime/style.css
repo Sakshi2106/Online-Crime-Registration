@@ -1,0 +1,21 @@
+.navbar-light .navbar-brand{
+	color: rgb(153, 0, 0);
+}
+.jumbotron{
+	background: url("https://newmexico.gop/wp-content/uploads/2019/12/policeline.jpg") no-repeat center center; 
+    -webkit-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    background-size: 100% 100%;
+	min-height: 350px;
+	color: white;
+}
+
+.card{
+	border: none;
+}
+
+.back1{
+	background: rgb(77, 25, 77);
+	color: white;
+}

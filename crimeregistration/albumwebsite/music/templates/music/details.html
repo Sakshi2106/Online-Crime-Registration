@@ -1,0 +1,22 @@
+{% extends 'music/base.html' %}
+
+
+{% block body %}
+	<div class="card" style="width: 18rem;">
+		<img src="{{album.album_logo}}" class="card-img-top" alt="...">
+		<div class="card-body">
+			<h5 class="card-title">{{album.album_title}}</h5>
+			<p class="card-text">{{album.genre}}</p>
+		</div>
+	</div>
+
+	
+	
+	{%for song in album.song_set.all %}
+		{{song.song_title}}
+				{%if song.is_favourite %}
+					<img src="https://media.gettyimages.com/photos/fivepointed-star-picture-id185006396?s=612x612">
+				{%endif%}
+				<br>
+	{% endfor %}
+{% endblock %}
