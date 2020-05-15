@@ -1,0 +1,21 @@
+
+{% for field in user_form %}
+
+	<div class="form-group row">
+		<span class="text-danger small">
+			{{ fields.errors }}
+		</span>
+		<label class="col-sm-2 col-form-label"> {{ field.label_tag }}</label>
+		<div class="col-sm-10 form-contol">{{ field }}</div>
+	</div>
+{% endfor %}
+{% for field in signup_form %}
+	<div class="form-group row">
+		<span class="text-danger small">
+			{{ fields.errors }}
+		</span>
+		<label class="col-sm-2 col-form-label"> {{ field.label_tag }}</label>
+		<div class="col-sm-10">{{ field }}</div>
+	</div>
+{% endfor %}
+
