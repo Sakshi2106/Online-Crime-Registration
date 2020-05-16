@@ -6,6 +6,8 @@ from django.views.generic import View
 from .forms import SignUpForm
 from .models import SignUp
 from django.contrib.auth.forms import UserCreationForm
+
+from django.contrib.auth import authenticate, login
 # Create your views here.
 
 class HomePageView(TemplateView):
@@ -42,5 +44,20 @@ class SignUpFormView(View):
 			signup.save()
 			
 			
-
 		return render(request, "onlinecrime/home.html", {'user_form': user_form, 'signup_form' : signup_form})
+
+def login_user(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                #albums = Album.objects.filter(user=request.user)
+                return render(request, 'onlinecrime/home.html', {'albums': albums})
+            else:
+                return render(request, 'onlinecrime/login.html', {'error_message': 'Your account has been disabled'})
+        else:
+            return render(request, 'onlinecrime/login.html', {'error_message': 'Invalid login'})
+    return render(request, 'onlinecrime/login.html')
