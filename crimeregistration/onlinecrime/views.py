@@ -1,7 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView
 from django.urls import reverse_lazy
-from django.shortcuts import render, redirect
 from django.views.generic import View
 from .forms import SignUpForm
 from .models import SignUp
@@ -12,7 +11,7 @@ from django.contrib.auth import authenticate, login
 
 class HomePageView(TemplateView):
 
-    template_name = "onlinecrime/home.html"
+	template_name = "onlinecrime/home.html"
 
 class AboutPageView(TemplateView):
 	template_name = "onlinecrime/about.html"
@@ -47,17 +46,36 @@ class SignUpFormView(View):
 		return render(request, "onlinecrime/home.html", {'user_form': user_form, 'signup_form' : signup_form})
 
 def login_user(request):
-    if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                #albums = Album.objects.filter(user=request.user)
-                return render(request, 'onlinecrime/home.html', {'albums': albums})
-            else:
-                return render(request, 'onlinecrime/login.html', {'error_message': 'Your account has been disabled'})
-        else:
-            return render(request, 'onlinecrime/login.html', {'error_message': 'Invalid login'})
-    return render(request, 'onlinecrime/login.html')
+	if request.method == "POST":
+		username = request.POST['username']
+		password = request.POST['password']
+		user = authenticate(username=username, password=password)
+		if user is not None:
+			if user.is_active:
+				login(request, user)
+				users = SignUp.objects.filter(user=request.user)
+				
+				return render(request, 'onlinecrime/home.html', {'users': users})
+			else:
+				return render(request, 'onlinecrime/user_login.html', {'error_message': 'Your account has been disabled'})
+		else:
+			return render(request, 'onlinecrime/user_login.html', {'error_message': 'Invalid login'})
+	return render(request, 'onlinecrime/user_login.html')
+
+def login_employee(request):
+	if request.method == "POST":
+		username = request.POST['username']
+		password = request.POST['password']
+		variable = SignUp.objects.filter(signup_as)	
+		user = authenticate(username=username, password=password)
+		if user is not None:
+			if user.is_active:
+				login(request, user)
+				users = SignUp.objects.filter(user=request.user)
+				if variable == "User":
+					return render(request, 'onlinecrime/home.html', {'users': users})
+			else:
+				return render(request, 'onlinecrime/employee_login.html', {'error_message': 'Your account has been disabled'})
+		else:
+			return render(request, 'onlinecrime/employee_login.html', {'error_message': 'Invalid login'})
+	return render(request, 'onlinecrime/employee_login.html')

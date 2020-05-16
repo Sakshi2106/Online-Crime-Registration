@@ -24,9 +24,13 @@
 		      		<li class="nav-item">
 		       			 <a class="nav-link" href="{% url 'about' %}">About</a>
 		      		</li>
-		      		<li><a href="#" class="nav-link">User Login</a></li>
-					<li><a href="#" class="nav-link">Employee Login</a></li>
-					<li><a href="#" class="nav-link">Admin Login</a></li>
+		      		<li class="nav-item">
+		      			<a href="{% url 'user_login' %}" class="nav-link">User Login</a>
+		      		</li>
+					<li class="nav-item">
+						<a href="{% url 'employee_login' %}" class="nav-link">Employee Login</a>
+					</li>
+					<li><a href="admin/" class="nav-link">Admin Login</a></li>
 		      		
 		    	</ul>
 		    	<div class="nav navbar-nav navbar-right">
