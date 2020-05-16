@@ -5,8 +5,12 @@ from django.views.generic import View
 from .forms import SignUpForm
 from .models import SignUp
 from django.contrib.auth.forms import UserCreationForm
+<<<<<<< HEAD
 
 from django.contrib.auth import authenticate, login
+=======
+from django.http import HttpResponseRedirect
+>>>>>>> 0f0bd1883b35b5419e18ed49664bef16a41b1107
 # Create your views here.
 
 class HomePageView(TemplateView):
@@ -43,6 +47,7 @@ class SignUpFormView(View):
 			signup.save()
 			
 			
+<<<<<<< HEAD
 		return render(request, "onlinecrime/home.html", {'user_form': user_form, 'signup_form' : signup_form})
 
 def login_user(request):
@@ -79,3 +84,10 @@ def login_employee(request):
 		else:
 			return render(request, 'onlinecrime/employee_login.html', {'error_message': 'Invalid login'})
 	return render(request, 'onlinecrime/employee_login.html')
+=======
+
+		return redirect('home')
+
+class UserDashboardView(TemplateView):
+	template_name = "onlinecrime/user_dashboard.html"
+>>>>>>> 0f0bd1883b35b5419e18ed49664bef16a41b1107
