@@ -54,8 +54,8 @@ def login_user(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                #albums = Album.objects.filter(user=request.user)
-                return render(request, 'onlinecrime/home.html', {'albums': albums})
+                users = SignUp.objects.filter(user=request.user)
+                return render(request, 'onlinecrime/home.html', {'users': users})
             else:
                 return render(request, 'onlinecrime/login.html', {'error_message': 'Your account has been disabled'})
         else:
