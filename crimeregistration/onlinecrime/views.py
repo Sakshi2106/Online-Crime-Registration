@@ -45,3 +45,6 @@ class SignUpFormView(View):
 			
 
 		return redirect('home')
+
+class UserDashboardView(TemplateView):
+	template_name = "onlinecrime/user_dashboard.html"
