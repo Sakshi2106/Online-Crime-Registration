@@ -6,6 +6,7 @@ from django.views.generic import View
 from .forms import SignUpForm
 from .models import SignUp
 from django.contrib.auth.forms import UserCreationForm
+from django.http import HttpResponseRedirect
 # Create your views here.
 
 class HomePageView(TemplateView):
@@ -43,4 +44,4 @@ class SignUpFormView(View):
 			
 			
 
-		return render(request, "onlinecrime/home.html", {'user_form': user_form, 'signup_form' : signup_form})
+		return redirect('home')
