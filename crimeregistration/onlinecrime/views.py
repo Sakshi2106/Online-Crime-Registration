@@ -5,12 +5,10 @@ from django.views.generic import View
 from .forms import SignUpForm
 from .models import SignUp
 from django.contrib.auth.forms import UserCreationForm
-<<<<<<< HEAD
-
 from django.contrib.auth import authenticate, login
-=======
+
 from django.http import HttpResponseRedirect
->>>>>>> 0f0bd1883b35b5419e18ed49664bef16a41b1107
+
 # Create your views here.
 
 class HomePageView(TemplateView):
@@ -47,7 +45,7 @@ class SignUpFormView(View):
 			signup.save()
 			
 			
-<<<<<<< HEAD
+
 		return render(request, "onlinecrime/home.html", {'user_form': user_form, 'signup_form' : signup_form})
 
 def login_user(request):
@@ -60,7 +58,7 @@ def login_user(request):
 				login(request, user)
 				users = SignUp.objects.filter(user=request.user)
 				
-				return render(request, 'onlinecrime/home.html', {'users': users})
+				return render(request, 'onlinecrime/user_dashboard.html', {'users': users})
 			else:
 				return render(request, 'onlinecrime/user_login.html', {'error_message': 'Your account has been disabled'})
 		else:
@@ -71,23 +69,21 @@ def login_employee(request):
 	if request.method == "POST":
 		username = request.POST['username']
 		password = request.POST['password']
-		variable = SignUp.objects.filter(signup_as)	
 		user = authenticate(username=username, password=password)
 		if user is not None:
 			if user.is_active:
 				login(request, user)
 				users = SignUp.objects.filter(user=request.user)
-				if variable == "User":
-					return render(request, 'onlinecrime/home.html', {'users': users})
+				
+				return render(request, 'onlinecrime/home.html', {'users': users})
 			else:
 				return render(request, 'onlinecrime/employee_login.html', {'error_message': 'Your account has been disabled'})
 		else:
 			return render(request, 'onlinecrime/employee_login.html', {'error_message': 'Invalid login'})
 	return render(request, 'onlinecrime/employee_login.html')
-=======
 
-		return redirect('home')
+		#return redirect('home')
 
 class UserDashboardView(TemplateView):
 	template_name = "onlinecrime/user_dashboard.html"
->>>>>>> 0f0bd1883b35b5419e18ed49664bef16a41b1107
+
