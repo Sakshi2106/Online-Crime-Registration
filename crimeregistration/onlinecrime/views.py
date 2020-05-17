@@ -4,9 +4,11 @@ from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from .forms import SignUpForm
-from .models import SignUp
+from .models import SignUp, Newcase
 from django.contrib.auth.forms import UserCreationForm
-from django.http import HttpResponseRedirect
+
+from django.views.generic.edit import CreateView,UpdateView,DeleteView
+
 # Create your views here.
 
 class HomePageView(TemplateView):
@@ -48,3 +50,7 @@ class SignUpFormView(View):
 
 class UserDashboardView(TemplateView):
 	template_name = "onlinecrime/user_dashboard.html"
+
+class NewCaseCreate(CreateView):
+	model = Newcase
+	fields = ['case_title', 'date', 'description']
