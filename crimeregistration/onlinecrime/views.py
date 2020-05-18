@@ -5,7 +5,7 @@ from django.views.generic import View
 from .forms import SignUpForm
 from .models import SignUp
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 from django.http import HttpResponseRedirect
 
@@ -75,7 +75,7 @@ def login_employee(request):
 				login(request, user)
 				users = SignUp.objects.filter(user=request.user)
 				
-				return render(request, 'onlinecrime/home.html', {'users': users})
+				return render(request, 'onlinecrime/employee_dashboard.html', {'users': users})
 			else:
 				return render(request, 'onlinecrime/employee_login.html', {'error_message': 'Your account has been disabled'})
 		else:
@@ -87,3 +87,14 @@ def login_employee(request):
 class UserDashboardView(TemplateView):
 	template_name = "onlinecrime/user_dashboard.html"
 
+class EmployeeDashboardView(TemplateView):
+	template_name = "onlinecrime/employee_dashboard.html"
+
+
+def logout_user(request):
+    logout(request)
+    form = UserCreationForm(request.POST or None)
+    context = {
+        "form": form,
+    }
+    return render(request, 'onlinecrime/home.html', context)
