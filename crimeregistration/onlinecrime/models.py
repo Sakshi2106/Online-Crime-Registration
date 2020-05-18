@@ -15,6 +15,7 @@ class SignUp(models.Model):
     def save(self, *args, **kwargs):
     	super().save(*args, **kwargs)
 
+<<<<<<< HEAD
 class Newcase(models.Model):
 	user = models.ForeignKey(SignUp, on_delete = models.CASCADE)
 	case_title = models.CharField(max_length = 50)
@@ -24,6 +25,11 @@ class Newcase(models.Model):
 	
 	def get_absolute_url(self):
 		return reverse("home")
+=======
+    def __str__(self):
+    	return self.signup_as
+
+>>>>>>> 4098331cbd95006d79359f1cb4ef938fa27e6f9f
 
 	def __str__(self):
 		return  self.case_title
