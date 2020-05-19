@@ -35,6 +35,7 @@ urlpatterns = [
     path('userdashboard/', UserDashboardView.as_view(), name='userdashboard'),
     path('userdashboard/addcase/' , AddCaseView.as_view(), name = 'addcase'),
     path('employeedashboard/', EmployeeDashboardView.as_view(), name='employeedashboard'),
-    path('logout/', views.logout_user, name = 'logout_user')
+    path('logout/', views.logout_user, name = 'logout_user'),
+    path('change_password/', views.change_password, name ='change_password')
 
 ]
