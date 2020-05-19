@@ -1,0 +1,30 @@
+{% extends 'onlinecrime/base1.html' %}
+
+
+{% block body %}
+	
+	<h1 style="padding-bottom: 30px" class="back1">ALL CASES</h1>
+	<div class="container bottom">
+		<table>
+		  <tr>
+		  	<th>Sr No</th>
+		  	<th>Case Title</th>
+		  	<th>Case Description </th>
+		  	<th>Case Registered Date</th>
+		  	<th>Case Status</th>
+		  </tr>
+		
+		{% for case in allcases %}
+			<tr>
+				<td>{{ forloop.counter }}</td>
+				<td>{{ case.case_title }}</td>
+				<td>{{ case.description }}</td>
+				<td>{{ case.date }}</td>
+				<td>{{ case.case_status }}</td>
+			</tr>
+		{% endfor %}
+		</table>
+	</div>
+	
+
+{% endblock %}
