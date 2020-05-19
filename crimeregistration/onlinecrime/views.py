@@ -1,15 +1,18 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.base import TemplateView
 from django.urls import reverse_lazy
 from django.views.generic import View
 from .forms import SignUpForm, AddCase
 from .models import SignUp, Newcase
+<<<<<<< HEAD
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib import messages
+=======
+from django.contrib.auth.forms import UserCreationForm
+from django.views import generic
+>>>>>>> a053c8caf521375bdb8b71b50efeaad684b9dc2a
 from django.views.generic.edit import CreateView,UpdateView,DeleteView
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
-
-from django.http import HttpResponseRedirect
 
 # Create your views here.
 
@@ -120,6 +123,7 @@ class AddCaseView(View):
 			
 			addcase = addcase_form.save(commit=False)
 			addcase.save()
+<<<<<<< HEAD
 		return redirect('home')	
 	
 
@@ -138,3 +142,15 @@ def change_password(request):
 		form = PasswordChangeForm(request.user)
 
 	return render(request, 'onlinecrime/change_password.html', {'form':form})
+=======
+		return redirect('allcases')	
+
+
+
+def AllCases_OfLoggedUserView(request):
+	allcases = Newcase.objects.filter(username = request.user.username)
+	return render(request, "onlinecrime/allcases.html", { 'allcases' : allcases} )
+		
+
+	
+>>>>>>> a053c8caf521375bdb8b71b50efeaad684b9dc2a

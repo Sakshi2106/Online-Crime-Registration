@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="{% static 'onlinecrime/style.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'onlinecrime/style1.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'onlinecrime/style2.css' %}">
 	
 </head>
 <body>
@@ -30,7 +31,7 @@
 		      		<li class="nav-item dropdown">
 				        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Adminstration</a>
 				        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-				          <a class="dropdown-item" href="#">Crime Lists</a>
+				          <a class="dropdown-item" href="{% url 'allcases' %}">Crime Lists</a>
 				          <a class="dropdown-item" href="{% url 'addcase' %}">My Case</a>
 				          
 			     	 </li>
@@ -45,7 +46,7 @@
 		    	</ul>
 		    	<div class="nav navbar-nav navbar-right">
 					
-					<li><a href="">Logout</a></li>
+					<li><a href="{% url 'logout_user' %}">Logout</a></li>
 				</div>
 		    		
 	  		</div>
