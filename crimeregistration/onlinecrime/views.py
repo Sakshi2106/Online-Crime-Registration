@@ -47,22 +47,7 @@ class SignUpFormView(View):
 		return redirect('home')	
 
 def login_user(request):
-<<<<<<< HEAD
-    if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                users = SignUp.objects.filter(user=request.user)
-                return render(request, 'onlinecrime/home.html', {'users': users})
-            else:
-                return render(request, 'onlinecrime/login.html', {'error_message': 'Your account has been disabled'})
-        else:
-            return render(request, 'onlinecrime/login.html', {'error_message': 'Invalid login'})
-    return render(request, 'onlinecrime/login.html')
-=======
+
 	if request.method == "POST":
 		username = request.POST['username']
 		password = request.POST['password']
@@ -71,14 +56,13 @@ def login_user(request):
 			if user.is_active:
 				login(request, user)
 				users = SignUp.objects.filter(user=request.user)
-				
 				return render(request, 'onlinecrime/user_dashboard.html', {'users': users})
 			else:
 				return render(request, 'onlinecrime/user_login.html', {'error_message': 'Your account has been disabled'})
 		else:
 			return render(request, 'onlinecrime/user_login.html', {'error_message': 'Invalid login'})
 	return render(request, 'onlinecrime/user_login.html')
-
+	
 def login_employee(request):
 	if request.method == "POST":
 		username = request.POST['username']
@@ -110,12 +94,12 @@ class EmployeeDashboardView(TemplateView):
 
 
 def logout_user(request):
-    logout(request)
-    form = UserCreationForm(request.POST or None)
-    context = {
-        "form": form,
-    }
-    return render(request, 'onlinecrime/home.html', context)
+	logout(request)
+	form = UserCreationForm(request.POST or None)
+	context = {
+		"form": form,
+	}
+	return render(request, 'onlinecrime/home.html', context)
 
 class AddCaseView(View):
 	form_class = AddCase
@@ -139,20 +123,27 @@ class AddCaseView(View):
 
 
 def AllCases_OfLoggedUserView(request):
-	allcases = Newcase.objects.filter(user = request.user)
+	allcases = Newcase.objects.filter(username = request.user.username)
 	return render(request, "onlinecrime/allcases.html", { 'allcases' : allcases} )
 		
 def update_view(request): 
-    if request.method == 'GET':
-	    user = request.user
-	    account_details = SignUp.objects.filter(user  = user).first()
-	    username = request.user.username
-	    password = request.user.password
-	    user_form = UserCreationForm( initial = {'username': username, 'password1': password, 'password2': password})
-	    signup_form = SignUpForm(request.GET or None, instance = account_details)
-	   	#signup_form = SignUpForm( request.GET or None, instance = account_details )
-	    user_form.fields['password1'].widget.render_value = True
-	    user_form.fields['password2'].widget.render_value = True
-	    return render(request, 'onlinecrime/update_profile.html', {'signup_form': signup_form, 'user_form': user_form})
-	
->>>>>>> d07dd202dbb6adccdd2b997bc32a7ad9668a0040
+	if request.method == 'GET':
+		user = request.user
+		account_details = SignUp.objects.filter(user  = user).first()
+		username = request.user.username
+		password = request.user.password
+		user_form = UserCreationForm( initial = {'username': username, 'password1': password, 'password2': password})
+		signup_form = SignUpForm(request.GET or None, instance = account_details)
+		#signup_form = SignUpForm( request.GET or None, instance = account_details )
+		user_form.fields['password1'].widget.render_value = True
+		user_form.fields['password2'].widget.render_value = True
+		return render(request, 'onlinecrime/update_profile.html', {'signup_form': signup_form, 'user_form': user_form})
+	else:
+		user_form = UserCreationForm(request.POST)
+		signup_form = SignUpForm(request.POST)
+
+		if user_form.is_valid() and signup_form.is_valid():
+			user_form.save()
+			signup_form.save()
+
+		return redirect('userdashboard')
