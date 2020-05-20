@@ -15,14 +15,25 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from onlinecrime.views import HomePageView, AboutPageView, SignUpFormView
+from onlinecrime.views import HomePageView, AboutPageView, SignUpFormView, UserDashboardView, AddCaseView, EmployeeDashboardView, AllCases_OfLoggedUserView, update_view
 from onlinecrime import views
 
 app_name = "onlinecrime"
+
+
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomePageView.as_view() , name='home'),
     path('about/', AboutPageView.as_view() , name='about'),
     path('register/', SignUpFormView.as_view(), name='register'),
-    path('login/', views.login_user, name = 'login')
+    path('user_login/', views.login_user, name = 'user_login'),
+    path('employee_login/', views.login_employee, name = 'employee_login'),
+    path('userdashboard/', UserDashboardView.as_view(), name='userdashboard'),
+    path('userdashboard/addcase/' , AddCaseView.as_view(), name = 'addcase'),
+    path('employeedashboard/', EmployeeDashboardView.as_view(), name='employeedashboard'),
+    path('logout/', views.logout_user, name = 'logout_user'),
+    path('userdashboard/allcases/' , views.AllCases_OfLoggedUserView, name = 'allcases'),
+    path('userdashboard/my_account/' , views.update_view, name = 'my_account'),
 ]

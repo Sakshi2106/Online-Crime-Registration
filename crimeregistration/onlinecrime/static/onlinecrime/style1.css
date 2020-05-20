@@ -1,0 +1,27 @@
+.dot {
+  		 width: 110%;
+        border-radius: 50%;
+        /* http://www.colorzilla.com/gradient-editor/ */
+        background: linear-gradient(135deg, #a7cfdf 0%,#23538a 100%);
+}
+.dot:after {
+        content: "";
+        display: block;
+        padding-bottom: 100%;
+}
+
+.circle-txt {
+        position: absolute;
+        bottom: 50%;
+        width: 100%;
+        text-align: center;
+        /* NOT IMPORTANT */
+        font-family: arial, sans-serif;
+        color: black;
+}
+
+.bottom{
+	padding-bottom: 80px;
+	padding-top: 40px
+}
+

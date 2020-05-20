@@ -1,18 +1,19 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.base import TemplateView
 from django.urls import reverse_lazy
-from django.shortcuts import render, redirect
 from django.views.generic import View
-from .forms import SignUpForm
-from .models import SignUp
-from django.contrib.auth.forms import UserCreationForm
+from .forms import SignUpForm, AddCase, UserForm
+from .models import SignUp, Newcase
+from django.contrib.auth.forms import UserCreationForm, User
+from django.views import generic
+from django.views.generic.edit import CreateView,UpdateView,DeleteView
+from django.contrib.auth import authenticate, login, logout
 
-from django.contrib.auth import authenticate, login
 # Create your views here.
 
 class HomePageView(TemplateView):
 
-    template_name = "onlinecrime/home.html"
+	template_name = "onlinecrime/home.html"
 
 class AboutPageView(TemplateView):
 	template_name = "onlinecrime/about.html"
@@ -43,10 +44,10 @@ class SignUpFormView(View):
 			signup.user = user
 			signup.save()
 			
-			
-		return render(request, "onlinecrime/home.html", {'user_form': user_form, 'signup_form' : signup_form})
+		return redirect('home')	
 
 def login_user(request):
+<<<<<<< HEAD
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
@@ -61,3 +62,97 @@ def login_user(request):
         else:
             return render(request, 'onlinecrime/login.html', {'error_message': 'Invalid login'})
     return render(request, 'onlinecrime/login.html')
+=======
+	if request.method == "POST":
+		username = request.POST['username']
+		password = request.POST['password']
+		user = authenticate(username=username, password=password)
+		if user is not None:
+			if user.is_active:
+				login(request, user)
+				users = SignUp.objects.filter(user=request.user)
+				
+				return render(request, 'onlinecrime/user_dashboard.html', {'users': users})
+			else:
+				return render(request, 'onlinecrime/user_login.html', {'error_message': 'Your account has been disabled'})
+		else:
+			return render(request, 'onlinecrime/user_login.html', {'error_message': 'Invalid login'})
+	return render(request, 'onlinecrime/user_login.html')
+
+def login_employee(request):
+	if request.method == "POST":
+		username = request.POST['username']
+		password = request.POST['password']
+		user = authenticate(username=username, password=password)
+		if user is not None:
+			if user.is_active:
+				login(request, user)
+				users = SignUp.objects.filter(user=request.user)
+				
+				return render(request, 'onlinecrime/employee_dashboard.html', {'users': users})
+			else:
+				return render(request, 'onlinecrime/employee_login.html', {'error_message': 'Your account has been disabled'})
+		else:
+			return render(request, 'onlinecrime/employee_login.html', {'error_message': 'Invalid login'})
+	return render(request, 'onlinecrime/employee_login.html')
+
+		#return redirect('home')
+
+
+class UserDashboardView(TemplateView):
+	template_name = "onlinecrime/user_dashboard.html"
+	
+	
+
+
+class EmployeeDashboardView(TemplateView):
+	template_name = "onlinecrime/employee_dashboard.html"
+
+
+def logout_user(request):
+    logout(request)
+    form = UserCreationForm(request.POST or None)
+    context = {
+        "form": form,
+    }
+    return render(request, 'onlinecrime/home.html', context)
+
+class AddCaseView(View):
+	form_class = AddCase
+	template_name = "onlinecrime/newcase_form.html"
+
+	#display blank form
+	def get(self, request):
+		addcase_form = AddCase(initial={'username': request.user.username})
+		return render(request, self.template_name, { 'addcase_form' : addcase_form})
+
+	def post(self, request):
+		addcase_form = AddCase(request.POST, )
+		
+		
+		if addcase_form.is_valid():
+			
+			addcase = addcase_form.save(commit=False)
+			addcase.save()
+		return redirect('allcases')	
+
+
+
+def AllCases_OfLoggedUserView(request):
+	allcases = Newcase.objects.filter(user = request.user)
+	return render(request, "onlinecrime/allcases.html", { 'allcases' : allcases} )
+		
+def update_view(request): 
+    if request.method == 'GET':
+	    user = request.user
+	    account_details = SignUp.objects.filter(user  = user).first()
+	    username = request.user.username
+	    password = request.user.password
+	    user_form = UserCreationForm( initial = {'username': username, 'password1': password, 'password2': password})
+	    signup_form = SignUpForm(request.GET or None, instance = account_details)
+	   	#signup_form = SignUpForm( request.GET or None, instance = account_details )
+	    user_form.fields['password1'].widget.render_value = True
+	    user_form.fields['password2'].widget.render_value = True
+	    return render(request, 'onlinecrime/update_profile.html', {'signup_form': signup_form, 'user_form': user_form})
+	
+>>>>>>> d07dd202dbb6adccdd2b997bc32a7ad9668a0040

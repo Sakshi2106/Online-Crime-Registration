@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django import forms
 
 from django.contrib.auth.forms import UserCreationForm
-from .models import SignUp
+from .models import SignUp, Newcase
 
 		
 
@@ -20,4 +20,10 @@ class UserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password']
+        fields = ['username']
+
+class AddCase(forms.ModelForm):
+	class Meta:
+		model = Newcase
+		fields = ('case_title', 'date', 'description', 'username',)
+
