@@ -20,9 +20,10 @@ class UserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password']
+        fields = ['username']
 
 class AddCase(forms.ModelForm):
 	class Meta:
 		model = Newcase
 		fields = ('case_title', 'date', 'description', 'username',)
+

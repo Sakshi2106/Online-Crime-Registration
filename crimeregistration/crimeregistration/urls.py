@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from onlinecrime.views import HomePageView, AboutPageView, SignUpFormView, UserDashboardView, AddCaseView, EmployeeDashboardView, AllCases_OfLoggedUserView
+from onlinecrime.views import HomePageView, AboutPageView, SignUpFormView, UserDashboardView, AddCaseView, EmployeeDashboardView, AllCases_OfLoggedUserView, update_view
 from onlinecrime import views
 
 app_name = "onlinecrime"
@@ -35,4 +35,5 @@ urlpatterns = [
     path('employeedashboard/', EmployeeDashboardView.as_view(), name='employeedashboard'),
     path('logout/', views.logout_user, name = 'logout_user'),
     path('userdashboard/allcases/' , views.AllCases_OfLoggedUserView, name = 'allcases'),
+    path('userdashboard/my_account/' , views.update_view, name = 'my_account'),
 ]
