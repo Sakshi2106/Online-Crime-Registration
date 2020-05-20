@@ -47,6 +47,22 @@ class SignUpFormView(View):
 		return redirect('home')	
 
 def login_user(request):
+<<<<<<< HEAD
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                users = SignUp.objects.filter(user=request.user)
+                return render(request, 'onlinecrime/home.html', {'users': users})
+            else:
+                return render(request, 'onlinecrime/login.html', {'error_message': 'Your account has been disabled'})
+        else:
+            return render(request, 'onlinecrime/login.html', {'error_message': 'Invalid login'})
+    return render(request, 'onlinecrime/login.html')
+=======
 	if request.method == "POST":
 		username = request.POST['username']
 		password = request.POST['password']
@@ -139,3 +155,4 @@ def update_view(request):
 	    user_form.fields['password2'].widget.render_value = True
 	    return render(request, 'onlinecrime/update_profile.html', {'signup_form': signup_form, 'user_form': user_form})
 	
+>>>>>>> d07dd202dbb6adccdd2b997bc32a7ad9668a0040
