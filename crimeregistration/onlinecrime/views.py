@@ -4,10 +4,19 @@ from django.urls import reverse_lazy
 from django.views.generic import View
 from .forms import SignUpForm, AddCase, UserForm
 from .models import SignUp, Newcase
+<<<<<<< HEAD
 from django.contrib.auth.forms import UserCreationForm, User
+=======
+<<<<<<< HEAD
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
+from django.contrib import messages
+=======
+from django.contrib.auth.forms import UserCreationForm
+>>>>>>> e08713435beca86ef5684356b4f5fec900baa8a9
 from django.views import generic
+>>>>>>> a053c8caf521375bdb8b71b50efeaad684b9dc2a
 from django.views.generic.edit import CreateView,UpdateView,DeleteView
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 
 # Create your views here.
 
@@ -119,6 +128,26 @@ class AddCaseView(View):
 			
 			addcase = addcase_form.save(commit=False)
 			addcase.save()
+<<<<<<< HEAD
+		return redirect('home')	
+	
+
+def change_password(request):
+	if request.method == 'POST':
+		form = PasswordChangeForm(request.user, request.POST)
+		if form.is_valid():
+			user = form.save()
+			update_session_auth_hash(request, user)
+			messages.success(request, "Password Changed Successfully!")
+			return redirect('home')
+		else:
+			messages.error(request, 'Invalid')
+
+	else:
+		form = PasswordChangeForm(request.user)
+
+	return render(request, 'onlinecrime/change_password.html', {'form':form})
+=======
 		return redirect('allcases')	
 
 
@@ -127,6 +156,7 @@ def AllCases_OfLoggedUserView(request):
 	allcases = Newcase.objects.filter(user = request.user)
 	return render(request, "onlinecrime/allcases.html", { 'allcases' : allcases} )
 		
+<<<<<<< HEAD
 def update_view(request): 
     if request.method == 'GET':
 	    user = request.user
@@ -140,3 +170,8 @@ def update_view(request):
 	    user_form.fields['password2'].widget.render_value = True
 	    return render(request, 'onlinecrime/update_profile.html', {'signup_form': signup_form, 'user_form': user_form})
 	
+=======
+
+	
+>>>>>>> a053c8caf521375bdb8b71b50efeaad684b9dc2a
+>>>>>>> e08713435beca86ef5684356b4f5fec900baa8a9
