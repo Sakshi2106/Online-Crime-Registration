@@ -1,20 +1,15 @@
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.base import TemplateView
 from django.urls import reverse_lazy
 from django.views.generic import View
-from .forms import SignUpForm, AddCase, UserForm
-from .models import SignUp, Newcase
-<<<<<<< HEAD
+from .forms import SignUpForm, AddCase, UserForm, AddCriminalForm
+from .models import SignUp, Newcase, AddCriminal
 from django.contrib.auth.forms import UserCreationForm, User
-=======
-<<<<<<< HEAD
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib import messages
-=======
 from django.contrib.auth.forms import UserCreationForm
->>>>>>> e08713435beca86ef5684356b4f5fec900baa8a9
 from django.views import generic
->>>>>>> a053c8caf521375bdb8b71b50efeaad684b9dc2a
 from django.views.generic.edit import CreateView,UpdateView,DeleteView
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 
@@ -128,8 +123,31 @@ class AddCaseView(View):
 			
 			addcase = addcase_form.save(commit=False)
 			addcase.save()
-<<<<<<< HEAD
-		return redirect('home')	
+		return redirect('allcases')	
+
+
+class AddCriminalView(View):
+	form_class = AddCriminalForm
+	template_name = "onlinecrime/addcriminal_form.html"
+
+	def get(self, request):
+		addcriminal_form = AddCriminalForm()
+		return render(request, self.template_name, { 'addcriminal_form' : addcriminal_form})
+
+	def post(self, request):
+		addcriminal_form = AddCriminalForm(request.POST, request.FILES)
+		
+		
+		if addcriminal_form.is_valid():
+			addcriminal_form.save()
+			return redirect('employeedashboard')
+
+		else:
+			return render(request, self.template_name, { 'addcriminal_form' : addcriminal_form})
+
+
+
+
 	
 
 def change_password(request):
@@ -147,16 +165,13 @@ def change_password(request):
 		form = PasswordChangeForm(request.user)
 
 	return render(request, 'onlinecrime/change_password.html', {'form':form})
-=======
-		return redirect('allcases')	
-
+		
 
 
 def AllCases_OfLoggedUserView(request):
 	allcases = Newcase.objects.filter(user = request.user)
 	return render(request, "onlinecrime/allcases.html", { 'allcases' : allcases} )
 		
-<<<<<<< HEAD
 def update_view(request): 
     if request.method == 'GET':
 	    user = request.user
@@ -169,9 +184,8 @@ def update_view(request):
 	    user_form.fields['password1'].widget.render_value = True
 	    user_form.fields['password2'].widget.render_value = True
 	    return render(request, 'onlinecrime/update_profile.html', {'signup_form': signup_form, 'user_form': user_form})
-	
-=======
 
-	
->>>>>>> a053c8caf521375bdb8b71b50efeaad684b9dc2a
->>>>>>> e08713435beca86ef5684356b4f5fec900baa8a9
+
+def CriminalReport(request):
+	criminalreport = AddCriminal.objects.all()
+	return render(request, 'onlinecrime/criminalreport.html', {'criminalreport' : criminalreport})

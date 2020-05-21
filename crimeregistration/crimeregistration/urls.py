@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from onlinecrime.views import HomePageView, AboutPageView, SignUpFormView, UserDashboardView, AddCaseView, EmployeeDashboardView, AllCases_OfLoggedUserView, update_view
+from onlinecrime.views import HomePageView, AboutPageView, SignUpFormView, UserDashboardView, AddCaseView, EmployeeDashboardView, AllCases_OfLoggedUserView, update_view, AddCriminalView
 from onlinecrime import views
 
 app_name = "onlinecrime"
@@ -34,14 +34,10 @@ urlpatterns = [
     path('userdashboard/addcase/' , AddCaseView.as_view(), name = 'addcase'),
     path('employeedashboard/', EmployeeDashboardView.as_view(), name='employeedashboard'),
     path('logout/', views.logout_user, name = 'logout_user'),
-<<<<<<< HEAD
-    path('change_password/', views.change_password, name ='change_password')
-
-=======
+    path('change_password/', views.change_password, name ='change_password'),
     path('userdashboard/allcases/' , views.AllCases_OfLoggedUserView, name = 'allcases'),
-<<<<<<< HEAD
     path('userdashboard/my_account/' , views.update_view, name = 'my_account'),
-=======
->>>>>>> a053c8caf521375bdb8b71b50efeaad684b9dc2a
->>>>>>> e08713435beca86ef5684356b4f5fec900baa8a9
-]
+    path('employeedashboard/addcriminal/', AddCriminalView.as_view(), name = 'addcriminal'),
+
+    path('employeedashboard/criminalreport/', views.CriminalReport, name = 'criminalreport')
+    ]
