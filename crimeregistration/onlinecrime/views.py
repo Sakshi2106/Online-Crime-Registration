@@ -51,11 +51,7 @@ class SignUpFormView(View):
 		return redirect('home')	
 
 def login_user(request):
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> c0956661c2dd6016a6102ac6dda55b17dfc7b7ae
 	if request.method == "POST":
 		username = request.POST['username']
 		password = request.POST['password']
@@ -175,7 +171,7 @@ def AllCases_OfLoggedUserView(request):
 	allcases = Newcase.objects.filter(username = request.user.username)
 	return render(request, "onlinecrime/allcases.html", { 'allcases' : allcases} )
 		
-<<<<<<< HEAD
+
 def user_update_view(request): 
 	if request.method == 'GET':
 		user = request.user
@@ -239,7 +235,7 @@ class CaseUpdate(UpdateView):
 
 	def get_object(self):
 		return Newcase.objects.get(pk=self.request.GET.get('pk')) 
-=======
+
 def update_view(request): 
     if request.method == 'GET':
 	    user = request.user
@@ -257,4 +253,3 @@ def update_view(request):
 def CriminalReport(request):
 	criminalreport = AddCriminal.objects.all()
 	return render(request, 'onlinecrime/criminalreport.html', {'criminalreport' : criminalreport})
->>>>>>> c0956661c2dd6016a6102ac6dda55b17dfc7b7ae
