@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from onlinecrime.views import HomePageView, AboutPageView, SignUpFormView, UserDashboardView, AddCaseView, EmployeeDashboardView, AllCases_OfLoggedUserView, update_view, login_user, login_employee
+from onlinecrime.views import HomePageView, AboutPageView, SignUpFormView, UserDashboardView, AddCaseView, EmployeeDashboardView, AllCases_OfLoggedUserView, user_update_view, login_user, login_employee, employee_update_view, case_report_view,Case_report_delete
+from onlinecrime.views import CaseUpdate
 from onlinecrime import views
 
 app_name = "onlinecrime"
@@ -35,5 +36,10 @@ urlpatterns = [
     path('employeedashboard/', EmployeeDashboardView.as_view(), name='employeedashboard'),
     path('logout/', views.logout_user, name = 'logout_user'),
     path('userdashboard/allcases/' , views.AllCases_OfLoggedUserView, name = 'allcases'),
-    path('userdashboard/my_account/' , views.update_view, name = 'my_account'),
+    path('userdashboard/my_account/' , views.user_update_view, name = 'user_account'),
+    path('employeedashboard/my_account/' , views.employee_update_view, name = 'employee_account'),
+    path('employeedashboard/case_report/' , views.case_report_view, name = 'case_report'),
+    path('employeedashboard/case_report_delete/<int:pk>/' , Case_report_delete.as_view(), name = 'case_report_delete'),
+    path('employeedashboard/case_report_update/<int:pk>/' , CaseUpdate.as_view(), name = 'case_report_update'),
+
 ]

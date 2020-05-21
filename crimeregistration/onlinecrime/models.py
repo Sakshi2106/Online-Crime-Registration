@@ -24,6 +24,8 @@ class Newcase(models.Model):
 	case_status = models.CharField(max_length = 50, default = "pending")
 	username = models.CharField(max_length = 20)
 	
+	def get_absolute_url(self):
+		return reverse("case_report")
 	
     
 
