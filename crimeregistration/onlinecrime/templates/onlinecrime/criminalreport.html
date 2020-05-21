@@ -1,0 +1,46 @@
+{% extends 'onlinecrime/base1.html' %}
+
+
+{% block body %}
+	
+	<h1 style="padding-bottom: 30px" class="back1">CRIMINAL REPORT</h1>
+	<div class="container bottom">
+		<center>
+		<table>
+		  <tr>
+		  	<th>Sr No</th>
+		  	<th>Name</th>
+		  	<th>Address </th>
+		  	<th>City</th>
+		  	<th>State</th>
+		  	<th>Country</th>
+		  	<th>Email</th>
+		  	<th>Mobile</th>
+		  	<th>Gender</th>
+		  	<th>DOB</th>
+		  	<th>Photo</th>
+		  	<th>Description</th>
+		  </tr>
+		
+		{% for criminal in criminalreport %}
+			<tr>
+				<td>{{ forloop.counter }}</td>
+				<td>{{ criminal.criminal_name }}</td>
+				<td>{{ criminal.address }}</td>
+				<td>{{ criminal.city }}</td>
+				<td>{{ criminal.state }}</td>
+				<td>{{ criminal.country }}</td>
+				<td>{{ criminal.email }}</td>
+				<td>{{ criminal.mobile }}</td>
+				<td>{{ criminal.gender }}</td>
+				<td>{{ criminal.dob }}</td>
+				<td>{{ criminal.photo }}</td>
+				<td>{{ criminal.description }}</td>
+			</tr>
+		{% endfor %}
+		</table>
+		</center>
+	</div>
+	
+
+{% endblock %}
