@@ -2,10 +2,9 @@
 
 
 {% block body %}
-	
+	<center>
 	<h1 style="padding-bottom: 30px" class="back1">CRIMINAL REPORT</h1>
 	<div class="container bottom">
-		<center>
 		<table>
 		  <tr>
 		  	<th>Sr No</th>
@@ -33,13 +32,12 @@
 				<td>{{ criminal.email }}</td>
 				<td>{{ criminal.mobile }}</td>
 				<td>{{ criminal.gender }}</td>
-				<td>{{ criminal.dob }}</td>
-				<td>{{ criminal.photo }}</td>
+				<td>{{ criminal.dob }}</td> 
+				<td> <img src="{{ criminal.photo }}" width="200px" height="200px"></td>
 				<td>{{ criminal.description }}</td>
 			</tr>
 		{% endfor %}
 		</table>
-		</center>
 	</div>
 	
 

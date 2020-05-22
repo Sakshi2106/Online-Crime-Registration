@@ -189,3 +189,5 @@ def update_view(request):
 def CriminalReport(request):
 	criminalreport = AddCriminal.objects.all()
 	return render(request, 'onlinecrime/criminalreport.html', {'criminalreport' : criminalreport})
+
+
