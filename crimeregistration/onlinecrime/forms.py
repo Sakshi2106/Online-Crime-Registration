@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django import forms
 
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
-from .models import SignUp, Newcase, AddCriminal
+from .models import SignUp, Newcase, AddCriminal, Crime
 
 		
 
@@ -32,3 +32,8 @@ class AddCriminalForm(forms.ModelForm):
 	class Meta:
 		model = AddCriminal
 		fields = ('criminal_name', 'address', 'city', 'state', 'country', 'email', 'mobile', 'gender', 'dob', 'photo', 'description' )
+
+class AddCrimeForm(forms.ModelForm):
+	class Meta:
+		model = Crime
+		fields = ('criminal_name', 'crime_title', 'crime_date', 'crime_description')

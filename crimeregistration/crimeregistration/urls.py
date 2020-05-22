@@ -17,9 +17,9 @@ from django.contrib import admin
 from django.urls import path
 
 from onlinecrime.views import HomePageView, AboutPageView, SignUpFormView, UserDashboardView, AddCaseView, EmployeeDashboardView, AllCases_OfLoggedUserView, user_update_view, login_user, login_employee, employee_update_view, case_report_view,Case_report_delete
-from onlinecrime.views import CaseUpdate
+from onlinecrime.views import CaseUpdate, Crime_Delete, Crime_Update
 
-from onlinecrime.views import HomePageView, AboutPageView, SignUpFormView, UserDashboardView, AddCaseView, EmployeeDashboardView, AllCases_OfLoggedUserView, update_view, AddCriminalView, CriminalReport
+from onlinecrime.views import HomePageView, AboutPageView, SignUpFormView, UserDashboardView, AddCaseView, EmployeeDashboardView, AllCases_OfLoggedUserView, update_view, AddCriminalView, CriminalReport, Criminal_Delete, Criminal_Update, AddCrimeView
 
 from onlinecrime import views
 
@@ -49,6 +49,14 @@ urlpatterns = [
     path('employeedashboard/case_report_update/<int:pk>/' , CaseUpdate.as_view(), name = 'case_report_update'),
     path('userdashboard/my_account/' , views.update_view, name = 'my_account'),
     path('employeedashboard/addcriminal/', AddCriminalView.as_view(), name = 'addcriminal'),
+    path('employeedashboard/addcrime/', AddCrimeView.as_view(), name = 'addcrime'),
 
-    path('employeedashboard/criminalreport/', views.CriminalReport, name = 'criminalreport')
+    path('employeedashboard/criminalreport/', views.CriminalReport, name = 'criminalreport'),
+    path('employeedashboard/crimereport/', views.CrimeReport, name = 'crimereport'),
+
+    path('employeedashboard/criminal_delete/<int:pk>/' , Criminal_Delete.as_view(), name = 'criminal_delete'),
+    path('employeedashboard/criminal_update/<int:pk>/' , Criminal_Update.as_view(), name = 'criminal_update'),
+    path('employeedashboard/crime_delete/<int:pk>/' , Crime_Delete.as_view(), name = 'crime_delete'),
+    path('employeedashboard/crime_update/<int:pk>/' , Crime_Update.as_view(), name = 'crime_update')
+    
     ]

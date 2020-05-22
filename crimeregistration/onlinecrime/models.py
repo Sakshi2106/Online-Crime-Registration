@@ -15,11 +15,11 @@ GENDER = (
 		)
 
 class SignUp(models.Model):
-    user = models.OneToOneField(User, on_delete = models.CASCADE)
-    signup_as = models.CharField(max_length=1, choices = CHOICES, default = "User")
-    email = models.EmailField(blank=True )
-    def save(self, *args, **kwargs):
-    	super().save(*args, **kwargs)
+	user = models.OneToOneField(User, on_delete = models.CASCADE)
+	signup_as = models.CharField(max_length=1, choices = CHOICES, default = "User")
+	email = models.EmailField(blank=True )
+	def save(self, *args, **kwargs):
+		super().save(*args, **kwargs)
 
 
 class Newcase(models.Model):
@@ -33,7 +33,7 @@ class Newcase(models.Model):
 	def get_absolute_url(self):
 		return reverse("case_report")
 	
-    
+	
 
 	def __str__(self):
 		return  self.case_title
@@ -54,3 +54,10 @@ class AddCriminal(models.Model):
 
 	def __str__(self):
 		return self.criminal_name
+
+
+class Crime(models.Model):
+	criminal_name = models.ForeignKey(AddCriminal, on_delete=models.CASCADE)
+	crime_title = models.CharField(max_length = 50)
+	crime_date = models.DateField()
+	crime_description = models.TextField()

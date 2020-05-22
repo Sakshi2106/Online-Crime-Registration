@@ -3,8 +3,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.base import TemplateView
 from django.urls import reverse_lazy
 from django.views.generic import View
-from .forms import SignUpForm, AddCase, UserForm, AddCriminalForm
-from .models import SignUp, Newcase, AddCriminal
+from .forms import SignUpForm, AddCase, UserForm, AddCriminalForm, AddCrimeForm
+from .models import SignUp, Newcase, AddCriminal, Crime
 from django.contrib.auth.forms import UserCreationForm, User
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib import messages
@@ -236,6 +236,21 @@ class CaseUpdate(UpdateView):
 	def get_object(self):
 		return Newcase.objects.get(pk=self.request.GET.get('pk')) 
 
+class Criminal_Delete(DeleteView):
+	model = AddCriminal
+	success_url = reverse_lazy('criminalreport')
+
+class Criminal_Update(UpdateView):
+	model = AddCriminal
+	fields = ['criminal_name', 'address', 'city', 'state', 'country', 'email', 'mobile', 'gender', 'dob', 'photo', 'description' ]
+
+	def get_initial(self):
+		return {'field1' :'criminal_name', 'field2' :'address', 'field3' :'city', 'field4' :'state', 'field5' :'country', 'field6' :'email', 'field7' :'mobile', 'field8' :'gender', 'field9' :'dob', 'field10' :'photo', 'field11' :'description' }
+
+	def get_object(self):
+		return AddCriminal.objects.get(pk=self.request.GET.get('pk'))
+
+
 def update_view(request): 
     if request.method == 'GET':
 	    user = request.user
@@ -253,8 +268,42 @@ def update_view(request):
 def CriminalReport(request):
 	criminalreport = AddCriminal.objects.all()
 	return render(request, 'onlinecrime/criminalreport.html', {'criminalreport' : criminalreport})
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 5dcc004e60674ba7354a5f56c217b3e449fd9c8f
+class AddCrimeView(View):
+	form_class = AddCrimeForm
+	template_name = "onlinecrime/addcrime_form.html"
+
+	def get(self, request):
+		addcrime_form = AddCrimeForm()
+		return render(request, self.template_name, { 'addcrime_form' : addcrime_form})
+
+	def post(self, request):
+		addcrime_form = AddCrimeForm(request.POST)
+		
+		
+		if addcrime_form.is_valid():
+			addcrime_form.save()
+			return redirect('employeedashboard')
+
+		else:
+			return render(request, self.template_name, { 'addcrime_form' : addcrime_form})
+
+
+def CrimeReport(request):
+	crimereport = Crime.objects.all()
+	return render(request, 'onlinecrime/crimereport.html', {'crimereport' : crimereport})
+
+class Crime_Delete(DeleteView):
+	model = Crime
+	success_url = reverse_lazy('crimereport')
+
+class Crime_Update(UpdateView):
+	model = Crime
+	fields = ['criminal_name', 'crime_title', 'crime_date', 'crime_description']
+
+	def get_initial(self):
+		return {'field1' :'criminal_name', 'field2' :'crime_title', 'field3' :'crime_date', 'field4' :'crime_description'}
+
+	def get_object(self):
+		return Crime.objects.get(pk=self.request.GET.get('pk'))
