@@ -263,7 +263,7 @@ def update_view(request):
 	    user_form.fields['password1'].widget.render_value = True
 	    user_form.fields['password2'].widget.render_value = True
 	    return render(request, 'onlinecrime/update_profile.html', {'signup_form': signup_form, 'user_form': user_form})
-
+	
 
 def CriminalReport(request):
 	criminalreport = AddCriminal.objects.all()
